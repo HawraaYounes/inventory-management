@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import Auth from "./pages/Auth";
+import Auth, { action } from "./pages/Auth";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Auth />,
-  
+    action: action
   },
   {
     path: "/dashboard",
