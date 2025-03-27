@@ -1,24 +1,43 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Table from "../components/Table"; // Adjust the import path if needed
 
-const ProductTypeList = ({}) => {
+const ProductTypeList = () => {
+  const navigate = useNavigate();
+
   const products = [
-    { id: 1, name: "Bed" },
-    { id: 2, name: "couch" },
-    { id: 3, name: "table" },
-    { id: 4, name: "chair" },
+    { id: 1, name: "Bed", count: 30, image: "/images/download (10).jpeg" },
+    { id: 2, name: "Couch", count: 30, image: "/images/Evins Sofa.jpeg" },
+    { id: 3, name: "Table", count: 30, image: "/images/table.jpeg" },
   ];
+
+  const columns = [
+    {
+      key: "image",
+      label: "Image",
+      render: (value) => (
+        <img
+          src={value}
+          alt="Product"
+          className="w-16 h-16 object-cover rounded-md"
+        />
+      ),
+    },
+    { key: "id", label: "ID" },
+    { key: "name", label: "Product Type Name" },
+    { key: "count", label: "Count" },
+  ];
+
   return (
-    <div className={`px-14`}>
-      <ul className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-        {products.map((product) => (
-          <li key={product.id} className="overflow-hidden">
-             <Link to={`/product-types/${product.id}`}> 
-            <p>{product.name}</p>
-             </Link> 
-          </li>
-        ))}
-      </ul>
+    <div className="px-14">
+      <h2 className="text-xl font-bold mb-4">Product Types</h2>
+      <Table
+        columns={columns}
+        data={products}
+        onRowClick={(product) => navigate(`/product-types/${product.id}`)}
+        onEdit={(product) => console.log("Edit", product)}
+        onRemove={(product) => console.log("Remove", product)}
+      />
     </div>
   );
 };
