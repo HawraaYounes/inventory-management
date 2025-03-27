@@ -1,16 +1,15 @@
-import React from 'react'
+import React from "react";
+import ProductTypeList from "../components/ProductTypeList";
 
-const Dashboard = () => {
+
+const Shop = () => {
+
   return (
-    <div>
-      Dashboard
-      Dashboard
-      Dashboard
-      Dashboard
-      Dashboard
-      Dashboard
+    <div className="mt-10">
+      {/* <ProductTypeList products={data.data}/> */}
+      <ProductTypeList/>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Shop;

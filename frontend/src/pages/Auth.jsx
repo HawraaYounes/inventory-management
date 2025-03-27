@@ -81,7 +81,7 @@ export async function action({ request }) {
 
     localStorage.setItem("token", response.data.token);
 
-    return redirect("/dashboard");
+    return redirect("/product-types");
   } catch (error) {
     const errorMessage =
       error.response?.data?.message ||
