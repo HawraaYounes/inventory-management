@@ -29,8 +29,7 @@ const ProductTypeList = () => {
   ];
 
   return (
-    <div className="px-14">
-      <h2 className="text-xl font-bold mb-4">Product Types</h2>
+    <div className="px-10">
       <Table
         columns={columns}
         data={products}
