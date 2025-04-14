@@ -4,7 +4,8 @@ import { ALERT_TYPES } from "../constants";
 import AuthForm from "../components/AuthForm";
 import { json, redirect } from "react-router-dom";
 import Alert from "../components/Alert";
-
+import axios from "axios";
+import { API_BASE_URL } from "../config";
 
 const Auth = () => {
   const [flashMessage, setFlashMessage] = useState({
@@ -76,13 +77,14 @@ export async function action({ request }) {
       headers: {
         "Content-Type": "application/json",
       },
-      withCredentials: true,
+     
     });
 
     localStorage.setItem("token", response.data.token);
 
     return redirect("/product-types");
   } catch (error) {
+    console.log(error)
     const errorMessage =
       error.response?.data?.message ||
       (error.response?.data?.errors
