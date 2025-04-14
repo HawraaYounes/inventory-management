@@ -77,14 +77,14 @@ export async function action({ request }) {
       headers: {
         "Content-Type": "application/json",
       },
-     
+     withCredentials:true
     });
-
+    console.log("RESSSS",response);
     localStorage.setItem("token", response.data.token);
 
     return redirect("/product-types");
   } catch (error) {
-    console.log(error)
+    console.log("ERROR",error)
     const errorMessage =
       error.response?.data?.message ||
       (error.response?.data?.errors
