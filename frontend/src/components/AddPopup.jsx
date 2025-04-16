@@ -1,72 +1,58 @@
-import React, { useState } from "react";
+import React from "react";
+import { Form } from "react-router-dom";
+import Input from "./Input";
+import Button from "./Button";
 
-const AddPopup = ({ onClose, title, fields, onSubmit }) => {
-  // Initialize form state based on provided fields
-  const initialState = fields.reduce((acc, field) => {
-    acc[field.name] = field.type === "file" ? null : "";
-    return acc;
-  }, {});
-
-  const [formData, setFormData] = useState(initialState);
-
-  const handleChange = (e, field) => {
-    if (field.type === "file") {
-      setFormData({ ...formData, [field.name]: e.target.files[0] });
-    } else {
-      setFormData({ ...formData, [field.name]: e.target.value });
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // You can perform validations or API calls here
-    onSubmit(formData);
-    onClose();
-  };
-
+const AddPopup = ({ onClose, title, fields }) => {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white p-6 rounded-md shadow-lg w-96">
-        <h2 className="text-lg font-bold mb-4">{title}</h2>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white p-6 rounded-md shadow-lg w-[90%] max-w-lg">
+        <h2 className="text-lg font-bold mb-6 font-poppins">{title}</h2>
+        <Form
+          method="post"
+          encType="multipart/form-data"
+          className="flex flex-col gap-5"
+        >
           {fields.map((field) => (
-            <div key={field.name} className="flex flex-col">
-              <label className="font-medium">{field.label}</label>
-              {field.type === "textarea" ? (
-                <textarea
-                  value={formData[field.name]}
-                  onChange={(e) => handleChange(e, field)}
-                  className="border p-2 rounded-md"
-                  required={field.required}
-                />
+            <div key={field.name}>
+              {field.type === "file" ? (
+                <div className="flex flex-col items-start w-full">
+                  <label
+                    htmlFor={field.name}
+                    className="block mb-[22px] font-medium font-poppins"
+                  >
+                    {field.label}
+                  </label>
+                  <input
+                    id={field.name}
+                    name={field.name}
+                    type="file"
+                    required={field.required}
+                    accept="image/*"
+                    className="bg-white border border-gray py-[15px] px-[20px] rounded-[10px] focus:outline-none"
+                  />
+                </div>
               ) : (
-                <input
+                <Input
+                  name={field.name}
+                  label={field.label}
+                  placeholder={field.placeholder}
                   type={field.type}
-                  value={field.type !== "file" ? formData[field.name] : undefined}
-                  onChange={(e) => handleChange(e, field)}
-                  className="border p-2 rounded-md"
-                  required={field.required}
-                  accept={field.type === "file" ? "image/*" : undefined}
                 />
               )}
             </div>
           ))}
-          <div className="flex justify-end gap-2 mt-4">
-            <button
+
+          <div className="flex justify-end gap-4 mt-6">
+            <Button
+              label="Cancel"
+              variant="outline"
               type="button"
-              className="bg-gray-400 text-white px-4 py-2 rounded-md"
               onClick={onClose}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-            >
-              Add
-            </button>
+            />
+            <Button label="Add" variant="hero" type="submit" />
           </div>
-        </form>
+        </Form>
       </div>
     </div>
   );

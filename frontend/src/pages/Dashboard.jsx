@@ -17,10 +17,7 @@ const Dashboard = () => {
     { name: "image", label: "Upload Image", type: "file", required: false },
   ];
 
-  const handleProductTypeSubmit = (data) => {
-    console.log("New Product Type Data:", data);
-    // Call your API to add the product type here.
-  };
+ 
 
   return (
     <div className={`${styles.paddingX} py-5`}>
@@ -43,7 +40,6 @@ const Dashboard = () => {
         <AddPopup
           title="Add New Product Type"
           fields={productTypeFields}
-          onSubmit={handleProductTypeSubmit}
           onClose={() => setIsPopupOpen(false)}
         />
       )}
