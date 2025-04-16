@@ -1,12 +1,15 @@
-// In Dashboard.js (or a dedicated component for Product Types)
+// src/pages/Dashboard.jsx
+
 import React, { useState } from "react";
-import ProductTypeList from "../components/ProductTypeList";
+import { useLoaderData } from "react-router-dom";
+import ProductTypeList from "../components/ProductTypeList"; // Same page, not nested route
 import AddPopup from "../components/AddPopup";
 import Button from "../components/Button";
 import styles from "../styles";
 
 const Dashboard = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const { products } = useLoaderData(); // Fetch product types via the loader
 
   const productTypeFields = [
     { name: "name", label: "Product Type Name", type: "text", required: true },
@@ -16,25 +19,25 @@ const Dashboard = () => {
 
   const handleProductTypeSubmit = (data) => {
     console.log("New Product Type Data:", data);
-    // You can call your API to add the product type here.
+    // Call your API to add the product type here.
   };
 
   return (
     <div className={`${styles.paddingX} py-5`}>
-      <div className="flex justify-between items-center mb-4 ">
+      <div className="flex justify-between items-center mb-4">
         <div className="items-center">
           <h2 className="text-xl font-medium text-graydarkest">Product Types</h2>
         </div>
-        <div className="">
+        <div>
           <Button
             variant="outline"
-            label="Add new Product Type                                                               "
+            label="Add new Product Type"
             onClick={() => setIsPopupOpen(true)}
           />
         </div>
       </div>
 
-      <ProductTypeList className="bg-slate-900" />
+      <ProductTypeList products={products} /> {/* Pass the products data to ProductTypeList */}
 
       {isPopupOpen && (
         <AddPopup

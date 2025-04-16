@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Auth, { action } from "./pages/Auth";
 import ProductItemsList from "./pages/ProductItemsList";
+import { productTypesLoader } from "./loaders/dashboardLoader";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
   {
     path: "/product-types",
     element: <Dashboard />,
+    loader: productTypesLoader 
   },
   {
     path: "product-types/:productId",

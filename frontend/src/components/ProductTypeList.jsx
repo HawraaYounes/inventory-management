@@ -1,15 +1,10 @@
+// src/components/ProductTypeList.jsx
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Table from "../components/Table"; // Adjust the import path if needed
 
-const ProductTypeList = () => {
+const ProductTypeList = ({ products }) => {
   const navigate = useNavigate();
-
-  const products = [
-    { id: 1, name: "Bed", count: 30, image: "/images/download (10).jpeg" },
-    { id: 2, name: "Couch", count: 30, image: "/images/Evins Sofa.jpeg" },
-    { id: 3, name: "Table", count: 30, image: "/images/table.jpeg" },
-  ];
 
   const columns = [
     {
@@ -30,13 +25,26 @@ const ProductTypeList = () => {
 
   return (
     <div className="px-10">
-      <Table
-        columns={columns}
-        data={products}
-        onRowClick={(product) => navigate(`/product-types/${product.id}`)}
-        onEdit={(product) => console.log("Edit", product)}
-        onRemove={(product) => console.log("Remove", product)}
-      />
+      <table className="min-w-full table-auto">
+        <thead>
+          <tr>
+            {columns.map((column) => (
+              <th key={column.key} className="py-2 px-4 text-left">{column.label}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((product) => (
+            <tr key={product.id} className="hover:bg-gray-100">
+              {columns.map((column) => (
+                <td key={column.key} className="py-2 px-4">
+                  {column.render ? column.render(product[column.key]) : product[column.key]}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
