@@ -3,6 +3,7 @@ import Dashboard from "./pages/Dashboard";
 import Auth, { action } from "./pages/Auth";
 import ProductItemsList from "./pages/ProductItemsList";
 import { productTypesLoader } from "./loaders/dashboardLoader";
+import { addProductTypeAction } from "./actions/addProductTypeAction";
 
 const router = createBrowserRouter([
   {
@@ -13,7 +14,8 @@ const router = createBrowserRouter([
   {
     path: "/product-types",
     element: <Dashboard />,
-    loader: productTypesLoader 
+    loader: productTypesLoader ,
+    action: addProductTypeAction,
   },
   {
     path: "product-types/:productId",
