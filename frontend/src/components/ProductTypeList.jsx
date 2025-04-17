@@ -12,7 +12,7 @@ const ProductTypeList = ({ products }) => {
       label: "Image",
       render: (value) => (
         <img
-          src={value}
+          src={`http://localhost:8000/storage/${value}`}
           alt="Product"
           className="w-16 h-16 object-cover rounded-md"
         />
@@ -29,7 +29,9 @@ const ProductTypeList = ({ products }) => {
         <thead>
           <tr>
             {columns.map((column) => (
-              <th key={column.key} className="py-2 px-4 text-left">{column.label}</th>
+              <th key={column.key} className="py-2 px-4 text-left">
+                {column.label}
+              </th>
             ))}
           </tr>
         </thead>
@@ -38,7 +40,9 @@ const ProductTypeList = ({ products }) => {
             <tr key={product.id} className="hover:bg-gray-100">
               {columns.map((column) => (
                 <td key={column.key} className="py-2 px-4">
-                  {column.render ? column.render(product[column.key]) : product[column.key]}
+                  {column.render
+                    ? column.render(product[column.key])
+                    : product[column.key]}
                 </td>
               ))}
             </tr>
