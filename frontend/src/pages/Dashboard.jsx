@@ -17,8 +17,6 @@ const Dashboard = () => {
     { name: "image", label: "Upload Image", type: "file", required: false },
   ];
 
- 
-
   return (
     <div className={`${styles.paddingX} py-5`}>
       <div className="flex justify-between items-center mb-4">
