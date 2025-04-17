@@ -12,7 +12,8 @@ const AddPopup = ({ onClose, title, fields }) => {
           method="post"
           encType="multipart/form-data"
           className="flex flex-col gap-5"
-        >
+        > 
+        
           {fields.map((field) => (
             <div key={field.name}>
               {field.type === "file" ? (

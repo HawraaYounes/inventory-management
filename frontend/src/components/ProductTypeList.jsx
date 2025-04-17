@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Table from "./Table"; // adjust if path is different
 
 const ProductTypeList = ({ products }) => {
   const navigate = useNavigate();
@@ -25,30 +26,13 @@ const ProductTypeList = ({ products }) => {
 
   return (
     <div className="px-10">
-      <table className="min-w-full table-auto">
-        <thead>
-          <tr>
-            {columns.map((column) => (
-              <th key={column.key} className="py-2 px-4 text-left">
-                {column.label}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.id} className="hover:bg-gray-100">
-              {columns.map((column) => (
-                <td key={column.key} className="py-2 px-4">
-                  {column.render
-                    ? column.render(product[column.key])
-                    : product[column.key]}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Table
+        columns={columns}
+        data={products}
+        onRowClick={(row) => navigate(`/product-types/${row.id}`)}
+        onEdit={(row) => navigate(`/product-types/${row.id}/edit`)}
+        onRemove={(row) => navigate(`/product-types/${row.id}/remove`)}
+      />
     </div>
   );
 };
