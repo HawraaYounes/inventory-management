@@ -65,17 +65,30 @@ class ProductTypeController extends Controller
         return response()->json($productType);
     }
 
-    public function destroy(ProductType $productType)
+    public function destroy($id)
     {
-        $this->authorizeOwner($productType);
-
-        if ($productType->image) {
-            Storage::disk('public')->delete($productType->image);
+        $product = ProductType::find($id);
+    
+        // If the product type is not found, return a 404 error response
+        if (!$product) {
+            return response()->json(['error' => 'Product type not found'], 404);
         }
-
-        $productType->delete();
+    
+        // Ensure the current user is authorized to delete the product type
+        $this->authorizeOwner($product);
+    
+        // Delete the image if it exists
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image);
+        }
+    
+        // Delete the product type from the database
+        $product->delete();
+    
         return response()->json(['message' => 'Product type deleted']);
     }
+    
+    
 
     protected function authorizeOwner(ProductType $productType)
     {

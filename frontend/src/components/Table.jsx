@@ -1,7 +1,6 @@
 import React from "react";
 
 const Table = ({ columns, data, onEdit, onRemove, onRowClick }) => {
-    console.log(data)
   return (
     <div className="overflow-x-auto font-poppins rounded-md ">
       <table className="min-w-full border border-[#e7e7e7] rounded-md ">

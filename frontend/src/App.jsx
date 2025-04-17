@@ -1,24 +1,34 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import Auth, { action } from "./pages/Auth";
+import Auth, { action as authAction } from "./pages/Auth";
 import ProductItemsList from "./pages/ProductItemsList";
 import { productTypesLoader } from "./loaders/dashboardLoader";
 import { addProductTypeAction } from "./actions/addProductTypeAction";
+import { editProductTypeAction } from "./actions/editProductTypeAction";
+import { removeProductTypeAction } from "./actions/removeProductTypeAction";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Auth />,
-    action: action
+    action: authAction,
   },
   {
     path: "/product-types",
     element: <Dashboard />,
-    loader: productTypesLoader ,
+    loader: productTypesLoader,
     action: addProductTypeAction,
   },
   {
-    path: "product-types/:productId",
+    path: "/product-types/:productId/edit",
+    action: editProductTypeAction,
+  },
+  {
+    path: "/product-types/:productId/remove",
+    action: removeProductTypeAction,
+  },
+  {
+    path: "/product-types/:productId",
     element: <ProductItemsList />,
   },
 ]);
@@ -28,3 +38,4 @@ function App() {
 }
 
 export default App;
+

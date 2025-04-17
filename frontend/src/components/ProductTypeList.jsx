@@ -1,8 +1,6 @@
-// src/components/ProductTypeList.jsx
-
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import Table from "./Table"; // adjust if path is different
+import { Form, useNavigate } from "react-router-dom";
+import Table from "./Table"; // assuming your custom Table component is here
 
 const ProductTypeList = ({ products }) => {
   const navigate = useNavigate();
@@ -22,6 +20,39 @@ const ProductTypeList = ({ products }) => {
     { key: "id", label: "ID" },
     { key: "name", label: "Product Type Name" },
     { key: "count", label: "Count" },
+    {
+      key: "actions",
+      label: "Actions",
+      render: (value, row) => (
+        <div className="flex gap-2">
+          <Form
+            method="post"
+            action={`/product-types/${row.id}/edit`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <input type="hidden" name="name" value={row.name} />
+            <input
+              type="hidden"
+              name="description"
+              value={row.description || ""}
+            />
+            <button type="submit" className="text-blue-500 hover:underline">
+              Edit
+            </button>
+          </Form>
+
+          <Form
+            method="post"
+            action={`/product-types/${row.id}/remove`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button type="submit" className="text-red-500 hover:underline">
+              Remove
+            </button>
+          </Form>
+        </div>
+      ),
+    },
   ];
 
   return (
@@ -30,8 +61,6 @@ const ProductTypeList = ({ products }) => {
         columns={columns}
         data={products}
         onRowClick={(row) => navigate(`/product-types/${row.id}`)}
-        onEdit={(row) => navigate(`/product-types/${row.id}/edit`)}
-        onRemove={(row) => navigate(`/product-types/${row.id}/remove`)}
       />
     </div>
   );
