@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useLoaderData, Outlet } from "react-router-dom";
 import ProductTypeList from "../components/ProductTypeList";
 import AddPopup from "../components/AddPopup";
-import Button from "../components/Button";
+import Button from "../components/ui/atoms/Button";
 import styles from "../styles";
 import { productTypeFields } from "../constants/productTypeFields";
 

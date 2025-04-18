@@ -1,8 +1,9 @@
 // src/components/AddPopup.jsx
 import React, { useEffect } from "react";
 import { useFetcher, useRevalidator } from "react-router-dom";
-import Input from "./Input";
-import Button from "./Button";
+import Input from "./ui/atoms/Input";
+import Button from "./ui/atoms/Button";
+import FileInput from "./ui/atoms/FileInput";
 
 const AddPopup = ({
   onClose,
@@ -43,13 +44,11 @@ const AddPopup = ({
                   >
                     {field.label}
                   </label>
-                  <input
-                    id={field.name}
+                  <FileInput
                     name={field.name}
-                    type="file"
+                    label={field.label}
                     required={field.required}
                     accept="image/*"
-                    className="bg-white border border-gray py-[15px] px-[20px] rounded-[10px] focus:outline-none"
                   />
                 </div>
               ) : (

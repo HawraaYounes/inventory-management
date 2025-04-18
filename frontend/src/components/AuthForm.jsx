@@ -1,6 +1,6 @@
 import { Form, Link, useSearchParams, useActionData } from "react-router-dom";
-import Button from "./Button";
-import Input from "./Input";
+import Button from "./ui/atoms/Button";
+import Input from "./ui/atoms/Input";
 import styles from "../styles";
 
 const AuthForm = ({ setFlashMessage }) => {
