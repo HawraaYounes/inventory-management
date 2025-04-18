@@ -1,7 +1,7 @@
 // src/components/ProductTypeList.jsx
 import React from "react";
 import { Form, useNavigate } from "react-router-dom";
-import Table from "./Table";
+import DataTable from "./organisms/DataTable";
 
 const ProductTypeList = ({ products }) => {
   const navigate = useNavigate();
@@ -18,9 +18,9 @@ const ProductTypeList = ({ products }) => {
         />
       ),
     },
-    { key: "id", label: "ID" },
+    { key: "id",   label: "ID" },
     { key: "name", label: "Product Type Name" },
-    { key: "count", label: "Count" },
+    { key: "count",label: "Count" },
     {
       key: "actions",
       label: "Actions",
@@ -35,7 +35,6 @@ const ProductTypeList = ({ products }) => {
               Edit
             </button>
           </Form>
-
           <Form
             method="delete"
             action={`/product-types/${row.id}/remove`}
@@ -52,7 +51,7 @@ const ProductTypeList = ({ products }) => {
 
   return (
     <div className="px-10">
-      <Table
+      <DataTable
         columns={columns}
         data={products}
         onRowClick={(row) => navigate(`${row.id}`)}
