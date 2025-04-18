@@ -1,6 +1,7 @@
+// src/components/ProductTypeList.jsx
 import React from "react";
 import { Form, useNavigate } from "react-router-dom";
-import Table from "./Table"; // assuming your custom Table component is here
+import Table from "./Table";
 
 const ProductTypeList = ({ products }) => {
   const navigate = useNavigate();
@@ -23,19 +24,13 @@ const ProductTypeList = ({ products }) => {
     {
       key: "actions",
       label: "Actions",
-      render: (value, row) => (
+      render: (_, row) => (
         <div className="flex gap-2">
           <Form
-            method="post"
+            method="get"
             action={`/product-types/${row.id}/edit`}
             onClick={(e) => e.stopPropagation()}
           >
-            <input type="hidden" name="name" value={row.name} />
-            <input
-              type="hidden"
-              name="description"
-              value={row.description || ""}
-            />
             <button type="submit" className="text-blue-500 hover:underline">
               Edit
             </button>
@@ -60,7 +55,7 @@ const ProductTypeList = ({ products }) => {
       <Table
         columns={columns}
         data={products}
-        onRowClick={(row) => navigate(`/product-types/${row.id}`)}
+        onRowClick={(row) => navigate(`${row.id}`)}
       />
     </div>
   );

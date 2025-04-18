@@ -1,3 +1,4 @@
+// src/App.jsx
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Auth, { action as authAction } from "./pages/Auth";
@@ -6,6 +7,8 @@ import { productTypesLoader } from "./loaders/dashboardLoader";
 import { addProductTypeAction } from "./actions/addProductTypeAction";
 import { editProductTypeAction } from "./actions/editProductTypeAction";
 import { removeProductTypeAction } from "./actions/removeProductTypeAction";
+import { productTypeLoader } from "./loaders/productTypeLoader";
+import EditProductTypeModal from "./components/EditProductTypeModal";
 
 const router = createBrowserRouter([
   {
@@ -18,14 +21,18 @@ const router = createBrowserRouter([
     element: <Dashboard />,
     loader: productTypesLoader,
     action: addProductTypeAction,
-  },
-  {
-    path: "/product-types/:productId/edit",
-    action: editProductTypeAction,
-  },
-  {
-    path: "/product-types/:productId/remove",
-    action: removeProductTypeAction,
+    children: [
+      {
+        path: ":productId/edit",
+        element: <EditProductTypeModal />,
+        loader: productTypeLoader,
+        action: editProductTypeAction,
+      },
+      {
+        path: ":productId/remove",
+        action: removeProductTypeAction,
+      },
+    ],
   },
   {
     path: "/product-types/:productId",
@@ -33,9 +40,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-function App() {
+export default function App() {
   return <RouterProvider router={router} />;
 }
-
-export default App;
-

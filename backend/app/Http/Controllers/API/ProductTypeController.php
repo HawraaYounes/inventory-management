@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ProductType;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class ProductTypeController extends Controller
@@ -37,14 +39,25 @@ class ProductTypeController extends Controller
         return response()->json($productType, 201);
     }
 
-    public function show(ProductType $productType)
+    public function show($id)
     {
+        $productType = ProductType::find($id);
+
+        if (!$productType) {
+            return response()->json(['error' => 'Product type not found'], 404);
+        }
+
         $this->authorizeOwner($productType);
+
         return $productType;
     }
 
-    public function update(Request $request, ProductType $productType)
+
+    public function update(Request $request, $productId)
     {
+        Log::info('Auth ID: ' . Auth::id());
+        Log::info('ProductType User ID: ' . $productId);
+        $productType = ProductType::findOrFail($productId);
         $this->authorizeOwner($productType);
 
         $request->validate([
@@ -68,29 +81,29 @@ class ProductTypeController extends Controller
     public function destroy($id)
     {
         $product = ProductType::find($id);
-    
+
         // If the product type is not found, return a 404 error response
         if (!$product) {
             return response()->json(['error' => 'Product type not found'], 404);
         }
-    
+
         // Ensure the current user is authorized to delete the product type
         $this->authorizeOwner($product);
-    
+
         // Delete the image if it exists
         if ($product->image) {
             Storage::disk('public')->delete($product->image);
         }
-    
+
         // Delete the product type from the database
         $product->delete();
-    
+
         return response()->json(['message' => 'Product type deleted']);
     }
-    
-    
 
-    protected function authorizeOwner(ProductType $productType)
+
+
+    protected function authorizeOwner($productType)
     {
         if ($productType->user_id !== Auth::id()) {
             abort(403, 'Unauthorized');

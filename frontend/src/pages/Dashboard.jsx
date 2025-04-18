@@ -1,46 +1,42 @@
 // src/pages/Dashboard.jsx
-
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
-import ProductTypeList from "../components/ProductTypeList"; // Same page, not nested route
+import { useLoaderData, Outlet } from "react-router-dom";
+import ProductTypeList from "../components/ProductTypeList";
 import AddPopup from "../components/AddPopup";
 import Button from "../components/Button";
 import styles from "../styles";
+import { productTypeFields } from "../constants/productTypeFields";
 
 const Dashboard = () => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const { products } = useLoaderData(); // Fetch product types via the loader
-
-  const productTypeFields = [
-    { name: "name", label: "Product Type Name", type: "text", required: true },
-    { name: "description", label: "Description", type: "textarea", required: false },
-    { name: "image", label: "Upload Image", type: "file", required: false },
-  ];
+  const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
+  const { products } = useLoaderData();
 
   return (
     <div className={`${styles.paddingX} py-5`}>
       <div className="flex justify-between items-center mb-4">
-        <div className="items-center">
-          <h2 className="text-xl font-medium text-graydarkest">Product Types</h2>
-        </div>
-        <div>
-          <Button
-            variant="outline"
-            label="Add new Product Type"
-            onClick={() => setIsPopupOpen(true)}
-          />
-        </div>
+        <h2 className="text-xl font-medium text-graydarkest">
+          Product Types
+        </h2>
+        <Button
+          variant="outline"
+          label="Add new Product Type"
+          onClick={() => setIsAddPopupOpen(true)}
+        />
       </div>
 
-      <ProductTypeList products={products} /> {/* Pass the products data to ProductTypeList */}
+      <ProductTypeList products={products} />
 
-      {isPopupOpen && (
+      {isAddPopupOpen && (
         <AddPopup
           title="Add New Product Type"
           fields={productTypeFields}
-          onClose={() => setIsPopupOpen(false)}
+          onClose={() => setIsAddPopupOpen(false)}
+          // no actionUrl = posts back to /product-types → addProductTypeAction
         />
       )}
+
+      {/* this renders <EditProductTypeModal> at /product‑types/:id/edit */}
+      <Outlet />
     </div>
   );
 };

@@ -22,6 +22,7 @@ export async function editProductTypeAction({ request, params }) {
     );
     return null;
   } catch (error) {
+    console.log("UPDATE ERROR",error)
     throw new Error("Failed to update product type");
   }
 }
