@@ -42,7 +42,7 @@ const ProductTypeList = ({ products }) => {
           </Form>
 
           <Form
-            method="post"
+            method="delete"
             action={`/product-types/${row.id}/remove`}
             onClick={(e) => e.stopPropagation()}
           >
