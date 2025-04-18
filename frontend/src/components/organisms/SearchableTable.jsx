@@ -19,7 +19,6 @@ const SearchableTable = ({
     if (!debounced) return localData;
     return localData.filter((row) => {
       const cell = row[searchKey];
-      console.log("Checking row:", row, " | Cell:", cell); // 👈 DEBUG THIS
       return String(cell).toLowerCase().includes(debounced.toLowerCase());
     });
   }, [localData, debounced, searchKey]);
