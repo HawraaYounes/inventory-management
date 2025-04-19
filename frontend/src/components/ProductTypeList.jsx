@@ -18,7 +18,7 @@ const ProductTypeList = ({ products }) => {
     },
     { key: "id",    label: "ID" },
     { key: "name",  label: "Name" },
-    { key: "count", label: "In Stock" },
+    { key: "count", label: "Count" },
     {
       key: "actions", label: "Actions",
       render: (_, row) => (
