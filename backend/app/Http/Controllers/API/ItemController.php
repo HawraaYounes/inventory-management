@@ -15,7 +15,8 @@ class ItemController extends Controller
         $productType = ProductType::findOrFail($productTypeId);
         $this->authorizeOwner($productType);
 
-        return $productType->items;
+        return $productType->items()->get();
+
     }
 
     public function store(Request $request, $productTypeId)

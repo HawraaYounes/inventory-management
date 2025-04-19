@@ -4,7 +4,6 @@ export const productTypeLoader = async ({ params }) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("Not authenticated");
-        console.log("params id",params)
       const res = await axios.get(
         `http://localhost:8000/api/product-types/${params.productId}`,
         {

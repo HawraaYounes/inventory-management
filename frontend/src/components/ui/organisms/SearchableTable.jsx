@@ -12,7 +12,6 @@ const SearchableTable = ({
   className = "",
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  
   const debounced = useDebounce(searchTerm, 300);
   // filter the data by the given key
   const filtered = useMemo(() => {

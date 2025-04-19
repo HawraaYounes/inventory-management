@@ -1,14 +1,15 @@
 // src/App.jsx
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
 import Auth, { action as authAction } from "./pages/Auth";
-import ProductItemsList from "./pages/ProductItemsList";
-import { productTypesLoader } from "./loaders/dashboardLoader";
+import Dashboard from "./pages/Dashboard";
+import EditProductTypeModal from "./components/EditProductTypeModal";
+
+import { dashboardLoader } from "./loaders/dashboardLoader";
+import { productTypeLoader } from "./loaders/productTypeLoader";
+
 import { addProductTypeAction } from "./actions/addProductTypeAction";
 import { editProductTypeAction } from "./actions/editProductTypeAction";
 import { removeProductTypeAction } from "./actions/removeProductTypeAction";
-import { productTypeLoader } from "./loaders/productTypeLoader";
-import EditProductTypeModal from "./components/EditProductTypeModal";
 
 const router = createBrowserRouter([
   {
@@ -17,26 +18,25 @@ const router = createBrowserRouter([
     action: authAction,
   },
   {
-    path: "/product-types",
+    // single route handles both list and detail (items) views
+    path: "/product-types/:productId?",
     element: <Dashboard />,
-    loader: productTypesLoader,
+    loader: dashboardLoader,
     action: addProductTypeAction,
     children: [
       {
-        path: ":productId/edit",
+        // /product-types/:productId/edit
+        path: "edit",
         element: <EditProductTypeModal />,
         loader: productTypeLoader,
         action: editProductTypeAction,
       },
       {
-        path: ":productId/remove",
+        // /product-types/:productId/remove
+        path: "remove",
         action: removeProductTypeAction,
       },
     ],
-  },
-  {
-    path: "/product-types/:productId",
-    element: <ProductItemsList />,
   },
 ]);
 

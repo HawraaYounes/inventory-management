@@ -5,7 +5,6 @@ export async function removeProductTypeAction({params}) {
   const {productId} = params;
   try {
     const token = localStorage.getItem("token"); // or sessionStorage, depending on your setup
-    console.log("Deleting product with ID:", productId);
 
     // Send the delete request
     await axios.delete(`http://localhost:8000/api/product-types/${productId}`, {

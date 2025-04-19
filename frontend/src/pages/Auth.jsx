@@ -79,12 +79,10 @@ export async function action({ request }) {
       },
      withCredentials:true
     });
-    console.log("RESPONSE VALUE",response);
     localStorage.setItem("token", response.data.token);
 
     return redirect("/product-types");
   } catch (error) {
-    console.log("ERROR",error)
     const errorMessage =
       error.response?.data?.message ||
       (error.response?.data?.errors
