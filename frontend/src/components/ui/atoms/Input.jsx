@@ -4,7 +4,7 @@ const Input = ({
   placeholder,
   type = "text",
   width = "w-full",
-  value,
+  defaultValue = "",
   onChange,
 }) => {
   return (
@@ -24,7 +24,7 @@ const Input = ({
         placeholder={placeholder}
         className="bg-white border border-gray mb-3 py-[25px] px-[30px] rounded-[10px] focus:outline-none min-w-[400px] max-w-[500px]"
         required
-        value={value}
+        defaultValue={defaultValue}
         onChange={onChange}
       />
     </div>
