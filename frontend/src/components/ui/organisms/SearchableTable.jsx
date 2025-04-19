@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
-import DataTable from "./DataTable";
-import useDebounce from "../../hooks/useDebounce";
-import SearchBar from "../molecules/SearchBar";
+import DataTable from "../organisms/DataTable"
+import useDebounce from "../../../hooks/useDebounce"
+import SearchBar from "../molecules/SearchBar"
 
 const SearchableTable = ({
   localData,

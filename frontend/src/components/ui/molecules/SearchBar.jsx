@@ -1,5 +1,5 @@
 import React from "react";
-import Input from "../ui/atoms/Input";
+import Input from "../atoms/Input"
 
 const SearchBar = ({ value, onChange, placeholder }) => (
   <div className="mb-4">

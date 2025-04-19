@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, useNavigate } from "react-router-dom";
-import SearchableTable from "./organisms/SearchableTable";
+import SearchableTable from "./ui/organisms/SearchableTable"
 
 const ProductTypeList = ({ products }) => {
   const navigate = useNavigate();
