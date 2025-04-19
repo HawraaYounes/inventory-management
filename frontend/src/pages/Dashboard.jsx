@@ -2,13 +2,13 @@
 import React, { useState } from "react";
 import { useLoaderData, Outlet } from "react-router-dom";
 import ProductTypeList from "../components/ProductTypeList";
-import AddPopup from "../components/AddPopup";
+import FormModal from "../components/ui/organisms/FormModal";
 import Button from "../components/ui/atoms/Button";
 import styles from "../styles";
 import { productTypeFields } from "../constants/productTypeFields";
 
 const Dashboard = () => {
-  const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
+  const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const { products } = useLoaderData();
 
   return (
@@ -20,17 +20,17 @@ const Dashboard = () => {
         <Button
           variant="outline"
           label="Add new Product Type"
-          onClick={() => setIsAddPopupOpen(true)}
+          onClick={() => setIsFormModalOpen(true)}
         />
       </div>
 
       <ProductTypeList products={products} />
 
-      {isAddPopupOpen && (
-        <AddPopup
+      {isFormModalOpen && (
+        <FormModal
           title="Add New Product Type"
           fields={productTypeFields}
-          onClose={() => setIsAddPopupOpen(false)}
+          onClose={() => setIsFormModalOpen(false)}
           // no actionUrl = posts back to /product-types → addProductTypeAction
         />
       )}

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useLoaderData } from "react-router-dom";
-import AddPopup from "./AddPopup";
+import FormModal from "./ui/organisms/FormModal";
 import { productTypeFields } from "../constants/productTypeFields";
 
 const EditProductTypeModal = () => {
@@ -11,7 +11,7 @@ const EditProductTypeModal = () => {
   const handleClose = () => navigate(-1);
 
   return (
-    <AddPopup
+    <FormModal
       title="Edit Product Type"
       fields={productTypeFields}
       initialValues={{

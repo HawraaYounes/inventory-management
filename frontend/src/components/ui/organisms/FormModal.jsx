@@ -1,11 +1,10 @@
-// src/components/AddPopup.jsx
 import React, { useEffect } from "react";
 import { useFetcher, useRevalidator } from "react-router-dom";
-import Input from "./ui/atoms/Input";
-import Button from "./ui/atoms/Button";
-import FileInput from "./ui/atoms/FileInput";
+import Input from "../atoms/Input";
+import Button from "../atoms/Button";
+import FileInput from "../atoms/FileInput";
 
-const AddPopup = ({
+const FormModal = ({
   onClose,
   title,
   fields,
@@ -78,4 +77,4 @@ const AddPopup = ({
   );
 };
 
-export default AddPopup;
+export default FormModal;
