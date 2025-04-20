@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { alertTypes } from  "../constants"
-import { closeIcon } from "../assets";
+import { alertTypes } from "../../../constants";
+import { closeIcon } from "../../../assets";
 
 
 const Alert = ({ type, message, description, duration = 4000 }) => {

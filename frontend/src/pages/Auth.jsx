@@ -3,9 +3,9 @@ import { useActionData } from "react-router-dom";
 import { ALERT_TYPES } from "../constants";
 import AuthForm from "../components/feature/AuthForm";
 import { json, redirect } from "react-router-dom";
-import Alert from "../components/Alert";
 import axios from "axios";
 import { API_BASE_URL } from "../config";
+import Alert from "../components/ui/molecules/Alert";
 
 const Auth = () => {
   const [flashMessage, setFlashMessage] = useState({
