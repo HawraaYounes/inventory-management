@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import SearchableTable from "../ui/organisms/SearchableTable";
 import FormModal from "../ui/organisms/FormModal";
 import { productTypeFields } from "../../constants/productTypeFields";
@@ -20,7 +20,8 @@ const ProductTypeList = ({ products }) => {
 
   const columns = [
     {
-      key: "image", label: "Image",
+      key: "image",
+      label: "Image",
       render: (val) => (
         <img
           src={`http://localhost:8000/storage/${val}`}
@@ -37,7 +38,8 @@ const ProductTypeList = ({ products }) => {
       render: (_, row) => <span>{row.items_count}</span>,
     },
     {
-      key: "actions", label: "Actions",
+      key: "actions",
+      label: "Actions",
       render: (_, row) => (
         <div className="flex gap-2">
           <button
@@ -49,13 +51,13 @@ const ProductTypeList = ({ products }) => {
           >
             Edit
           </button>
-          <form
+          <Form
             method="delete"
             action={`/product-types/${row.id}/remove`}
             onClick={(e) => e.stopPropagation()}
           >
             <button className="text-red-500 hover:underline">Remove</button>
-          </form>
+          </Form>
         </div>
       ),
     },
