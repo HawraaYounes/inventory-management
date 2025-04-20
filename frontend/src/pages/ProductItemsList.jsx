@@ -12,37 +12,6 @@ const ProductItemsList = ({ items }) => {
   const columns = [
     { key: "id", label: "ID" },
     { key: "serial_number", label: "Serial Number" },
-    // {
-    //   key: "is_sold",
-    //   label: "Sold",
-    //   render: (val, row) => (
-    //      <input
-    //     type="checkbox"
-    //     checked={row.is_sold}
-    //     onChange={async (e) => {
-    //       const token = localStorage.getItem("token"); // or sessionStorage, depending on your setup
-      
-    //       try {
-    //         await axios.post(
-    //           `${API_BASE_URL}/api/items/${row.id}/sold`,
-    //           { is_sold: e.target.checked },
-    //           {
-    //             headers: {
-    //               Authorization: `Bearer ${token}`,
-    //               "Content-Type": "application/json",
-    //             },
-    //           }
-    //         );
-    //       } catch (err) {
-    //         console.error("Failed to update item status:", err);
-    //         // Optionally, add UI feedback here
-    //       }
-    //     }}
-    //   />
-    //   )
-      
-      
-    // },
     {
       key: "is_sold",
       label: "Sold",
