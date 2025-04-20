@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   useLoaderData,
@@ -13,7 +12,7 @@ import Button from "../components/ui/atoms/Button";
 import styles from "../styles";
 
 import { productTypeFields } from "../constants/productTypeFields";
-import { itemFields } from "../constants/itemFields"; 
+import { itemFields } from "../constants/itemFields";
 
 const Dashboard = () => {
   const loaderData = useLoaderData();
@@ -36,15 +35,16 @@ const Dashboard = () => {
         title: "Add New Item",
         fields: itemFields,
         onClose: () => setModalConfig(null),
-        actionUrl: `/product-types/${productId}/add-item`
+        actionUrl: `/product-types/${productId}/add-item`,
       });
     }
   };
 
   return (
-    <div className={`${styles.paddingX} py-5`}>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-medium text-graydarkest">
+    <div className={`${styles.paddingX} py-6 max-w-7xl mx-auto`}>
+      {/* Header */}
+      <div className="flex flex-wrap justify-between items-center mb-6 gap-3">
+        <h2 className="text-2xl ml-9 font-semibold text-gray-800">
           {mode === "productType"
             ? "Product Types"
             : `Items in Product #${productId}`}
@@ -57,16 +57,18 @@ const Dashboard = () => {
         />
       </div>
 
-      {mode === "productType" ? (
-        <ProductTypeList products={loaderData.products} />
-      ) : (
-        <ProductItemsList items={loaderData.items} />
-      )}
+      {/* List */}
+      <div className="mt-6">
+        {mode === "productType" ? (
+          <ProductTypeList products={loaderData.products} />
+        ) : (
+          <ProductItemsList items={loaderData.items} />
+        )}
+      </div>
 
+      {/* Modal */}
       {modalConfig && (
-        <FormModal
-          {...modalConfig}
-        />
+        <FormModal {...modalConfig} />
       )}
 
       <Outlet />
