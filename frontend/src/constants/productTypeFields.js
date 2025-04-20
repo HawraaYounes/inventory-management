@@ -1,4 +1,3 @@
-// src/constants/productTypeFields.js
 export const productTypeFields = [
     { name: "name", label: "Product Type Name", type: "text", required: true },
     {

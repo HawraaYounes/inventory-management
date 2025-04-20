@@ -14,7 +14,6 @@ const FormModal = ({
   const fetcher = useFetcher();
   const revalidator = useRevalidator();
 
-  // when the mutation finishes, re‑run the parent loader and close the popup
   useEffect(() => {
     if (fetcher.state === "idle" && fetcher.data !== undefined) {
       revalidator.revalidate();

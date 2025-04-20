@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_BASE_URL } from "../config"; // Ensure you have the API_BASE_URL defined
+import { API_BASE_URL } from "../config"; 
 
 export const dashboardLoader = async ({ params }) => { 
   const token = localStorage.getItem("token");
@@ -19,6 +19,6 @@ export const dashboardLoader = async ({ params }) => {
       : { products: res.data };
   } catch (error) {
     console.error("Error in dashboard loader:", error);
-    return { items: [], error: error.message }; // Handle error and return empty array for items
+    return { items: [], error: error.message }; 
   }
 };

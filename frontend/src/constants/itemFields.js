@@ -4,7 +4,7 @@ export const itemFields = [
       label: "Total Items",
       type: "number",
       placeholder: "Enter total number of items",
-      required: false,    // optional, but you can validate it matches lines below
+      required: false,    
     },
     {
       name: "serial_numbers",

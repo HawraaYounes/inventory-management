@@ -1,4 +1,3 @@
-// src/actions/editItemAction.js
 import axios from "axios";
 import { API_BASE_URL } from "../config";
 
@@ -6,8 +5,7 @@ export const editItemAction = async ({ request, params }) => {
   const formData = await request.formData();
   const serialNumber = formData.get("serial_number");
 
-  // Get token from localStorage
-  const token = localStorage.getItem("token"); // or sessionStorage, depending on your auth flow
+  const token = localStorage.getItem("token"); 
 
   try {
     await axios.put(
@@ -15,7 +13,7 @@ export const editItemAction = async ({ request, params }) => {
       { serial_number: serialNumber },
       {
         headers: {
-          Authorization: `Bearer ${token}`, // ✅ include token for protected route
+          Authorization: `Bearer ${token}`, 
         },
       }
     );

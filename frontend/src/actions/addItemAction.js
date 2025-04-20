@@ -1,22 +1,17 @@
-// src/actions/addItemAction.js
 
 import { redirect } from "react-router-dom";
 import axios from "axios";
 
 export async function addItemAction({ request, params }) {
-  // 1. Pull form data out
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   const { productId } = params;
 
-  // 2. JWT token
   const token = localStorage.getItem("token");
   if (!token) {
     return { error: "You must be logged in to perform this action." };
   }
 
-  // 3. Parse serial_numbers textarea into an array
-  // Expect `data.serial_numbers` as a newline-separated string
   const rawLines = (data.serial_numbers || "").split(/\r?\n/);
   const serial_numbers = rawLines
     .map((s) => s.trim())
@@ -26,7 +21,6 @@ export async function addItemAction({ request, params }) {
     return { error: "Please enter at least one serial number." };
   }
 
-  // 4. (Optional) validate count matches lines
   if (data.count) {
     const expected = parseInt(data.count, 10);
     if (isNaN(expected) || expected !== serial_numbers.length) {
@@ -34,7 +28,6 @@ export async function addItemAction({ request, params }) {
     }
   }
 
-  // 5. Send to backend
   try {
     await axios.post(
       `http://localhost:8000/api/product-types/${productId}/items`,
@@ -47,11 +40,9 @@ export async function addItemAction({ request, params }) {
       }
     );
 
-    // 6. On success, redirect back to the items page
     return res.data;
   } catch (error) {
     console.error("Error adding items:", error);
-    // Capture Laravel validation errors or generic message
     const message =
       error.response?.data?.errors
         ? Object.values(error.response.data.errors).flat().join(" ")

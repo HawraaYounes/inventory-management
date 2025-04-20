@@ -7,7 +7,7 @@ const SoldCheckbox = ({ item }) => {
 
   const handleToggle = async (e) => {
     const newStatus = e.target.checked;
-    setIsSold(newStatus); // optimistic UI
+    setIsSold(newStatus); 
 
     const token = localStorage.getItem("token");
 
@@ -24,7 +24,7 @@ const SoldCheckbox = ({ item }) => {
       );
     } catch (err) {
       console.error("Failed to update item status:", err);
-      setIsSold(!newStatus); // rollback on error
+      setIsSold(!newStatus);
     }
   };
 

@@ -12,7 +12,6 @@ export async function updateItemStatusAction({ request, params }) {
         is_sold: isSold,
       });
 
-    // Don't redirect — stay on the same page
     return redirect(`/product-types/${params.productId}`);
   } catch (error) {
     console.error("Error updating item status", error);

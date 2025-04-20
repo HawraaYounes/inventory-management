@@ -1,4 +1,3 @@
-// src/pages/Dashboard.jsx
 
 import React, { useState } from "react";
 import {
@@ -14,18 +13,16 @@ import Button from "../components/ui/atoms/Button";
 import styles from "../styles";
 
 import { productTypeFields } from "../constants/productTypeFields";
-import { itemFields } from "../constants/itemFields"; // Create this like productTypeFields
+import { itemFields } from "../constants/itemFields"; 
 
 const Dashboard = () => {
   const loaderData = useLoaderData();
   const { productId } = useParams();
 
-  // One modal config for both forms
   const [modalConfig, setModalConfig] = useState(null);
 
   const mode = productId ? "items" : "productType";
 
-  // Handles opening the modal for both modes
   const handleOpenModal = () => {
     if (mode === "productType") {
       setModalConfig({
@@ -33,7 +30,6 @@ const Dashboard = () => {
         fields: productTypeFields,
         onClose: () => setModalConfig(null),
         actionUrl: "/product-types",
-        // Optionally add: actionUrl, method, defaultValues, etc.
       });
     } else {
       setModalConfig({

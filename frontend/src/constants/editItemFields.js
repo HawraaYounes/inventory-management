@@ -1,4 +1,3 @@
-// src/constants/itemFields.js
 export const editItemFields = [
     {
       name: "serial_number",

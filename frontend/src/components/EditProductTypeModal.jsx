@@ -7,7 +7,6 @@ const EditProductTypeModal = () => {
   const navigate = useNavigate();
   const { productType } = useLoaderData();
 
-  // close modal by going back to parent route
   const handleClose = () => navigate(-1);
 
   return (
@@ -17,7 +16,6 @@ const EditProductTypeModal = () => {
       initialValues={{
         name: productType.name,
         description: productType.description,
-        // we won’t prefill file inputs
       }}
       actionUrl={`/product-types/${productType.id}/edit`}
       onClose={handleClose}
