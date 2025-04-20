@@ -13,6 +13,7 @@ import { removeProductTypeAction } from "./actions/removeProductTypeAction";
 import { addItemAction } from "./actions/addItemAction";
 import { removeItemAction } from "./actions/removeItemAction";
 import { updateItemStatusAction } from "./actions/updateItemStatusAction";
+import { editItemAction } from "./actions/editItemAction";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,11 @@ const router = createBrowserRouter([
         path: "remove",
         action: removeProductTypeAction,
       },
+      
+      {
+        path: "items/:itemId/edit",
+        action: editItemAction,
+      }
     ],
   },
 ]);
