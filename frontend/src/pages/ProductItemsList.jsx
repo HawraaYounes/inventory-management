@@ -42,7 +42,7 @@ const ProductItemsList = ({ items }) => {
           </Form>
           <Form
             method="delete"
-            action={`/items/${row.id}`}
+            action={`items/${row.id}`} 
             onClick={(e) => e.stopPropagation()}
           >
             <button className="text-red-500 hover:underline">Remove</button>

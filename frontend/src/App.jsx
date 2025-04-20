@@ -11,6 +11,7 @@ import { addProductTypeAction } from "./actions/addProductTypeAction";
 import { editProductTypeAction } from "./actions/editProductTypeAction";
 import { removeProductTypeAction } from "./actions/removeProductTypeAction";
 import { addItemAction } from "./actions/addItemAction";
+import { removeItemAction } from "./actions/removeItemAction";
 
 const router = createBrowserRouter([
   {
@@ -26,9 +27,11 @@ const router = createBrowserRouter([
     action: addProductTypeAction,
     children: [
       {
-        path: "add-item", 
+        path: "add-item",
         action: addItemAction, // this matches POST /product-types/:productId/add-item
       },
+      { path: "items/:itemId", 
+        action: removeItemAction },
       {
         // /product-types/:productId/edit
         path: "edit",
@@ -41,7 +44,6 @@ const router = createBrowserRouter([
         path: "remove",
         action: removeProductTypeAction,
       },
-      
     ],
   },
 ]);
