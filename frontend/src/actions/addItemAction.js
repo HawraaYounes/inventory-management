@@ -48,7 +48,7 @@ export async function addItemAction({ request, params }) {
     );
 
     // 6. On success, redirect back to the items page
-    return redirect(`/product-types/${productId}`);
+    return res.data;
   } catch (error) {
     console.error("Error adding items:", error);
     // Capture Laravel validation errors or generic message

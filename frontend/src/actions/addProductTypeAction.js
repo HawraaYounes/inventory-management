@@ -1,28 +1,48 @@
+// src/actions/addProductTypeAction.js
 import axios from "axios";
-import { redirect } from "react-router-dom";
 
 export async function addProductTypeAction({ request }) {
+  // 1. Pull the incoming form data
   const formDataFromRequest = await request.formData();
 
+  // 2. Rebuild a browser-compatible FormData
   const formData = new FormData();
   formData.append("name", formDataFromRequest.get("name"));
-  formData.append("description", formDataFromRequest.get("description"));
-  formData.append("image", formDataFromRequest.get("image"));
+  formData.append("description", formDataFromRequest.get("description") || "");
+  const file = formDataFromRequest.get("image");
+  if (file && file.size > 0) {
+    formData.append("image", file);
+  }
 
-  const token = localStorage.getItem("token"); // or sessionStorage.getItem("token")
+  // 3. Get your JWT
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return { error: "You must be logged in to perform this action." };
+  }
 
   try {
-    await axios.post("http://localhost:8000/api/product-types", formData, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "multipart/form-data"
+    // 4. Send to the API
+    const res = await axios.post(
+      "http://localhost:8000/api/product-types",
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
       }
-    });
+    );
 
-    return redirect("/product-types");
-  } catch (error) {
-    console.error("❌ Axios error:", error);
-    console.error("❌ Response data:", error.response?.data);
-    throw new Error("Failed to create product type.");
+    // 5. Return the created ProductType JSON
+    return res.data;
+  } catch (err) {
+    console.error("Error creating product type:", err.response?.data || err);
+    // 6. Return a minimal error object; fetcher.data will be set to this
+    return {
+      error:
+        err.response?.data?.message ||
+        Object.values(err.response?.data?.errors || {}).flat().join(" ") ||
+        "Failed to create product type.",
+    };
   }
 }
