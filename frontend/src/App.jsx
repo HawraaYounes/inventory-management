@@ -40,7 +40,6 @@ const router = createBrowserRouter([
       {
         // /product-types/:productId/edit
         path: "edit",
-        element: <EditProductTypeModal />,
         loader: productTypeLoader,
         action: editProductTypeAction,
       },

@@ -1,10 +1,22 @@
 import React from "react";
-import { Form, useNavigate } from "react-router-dom";
-import SearchableTable from "./ui/organisms/SearchableTable"
+import { useNavigate } from "react-router-dom";
+import SearchableTable from "./ui/organisms/SearchableTable";
+import FormModal from "./ui/organisms/FormModal";
+import { productTypeFields } from "../constants/productTypeFields";
 
 const ProductTypeList = ({ products }) => {
-  console.log(products,"ProductTypeList");
   const navigate = useNavigate();
+  const [modalConfig, setModalConfig] = React.useState(null);
+
+  const handleEdit = (product) => {
+    setModalConfig({
+      title: "Edit Product Type",
+      fields: productTypeFields,
+      onClose: () => setModalConfig(null),
+      actionUrl: `/product-types/${product.id}/edit`,
+      initialValues: product,
+    });
+  };
 
   const columns = [
     {
@@ -17,33 +29,33 @@ const ProductTypeList = ({ products }) => {
         />
       ),
     },
-    { key: "id",    label: "ID" },
-    { key: "name",  label: "Name" },
+    { key: "id", label: "ID" },
+    { key: "name", label: "Name" },
     {
       key: "count",
       label: "Count",
-      render: (_, row) => (
-        <span>{row.items_count}</span>  
-      ),
+      render: (_, row) => <span>{row.items_count}</span>,
     },
     {
       key: "actions", label: "Actions",
       render: (_, row) => (
         <div className="flex gap-2">
-          <Form
-            method="get"
-            action={`/product-types/${row.id}/edit`}
-            onClick={(e) => e.stopPropagation()}
+          <button
+            className="text-blue-500 hover:underline"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleEdit(row);
+            }}
           >
-            <button className="text-blue-500 hover:underline">Edit</button>
-          </Form>
-          <Form
+            Edit
+          </button>
+          <form
             method="delete"
             action={`/product-types/${row.id}/remove`}
             onClick={(e) => e.stopPropagation()}
           >
             <button className="text-red-500 hover:underline">Remove</button>
-          </Form>
+          </form>
         </div>
       ),
     },
@@ -58,6 +70,7 @@ const ProductTypeList = ({ products }) => {
         placeholder="Search product types…"
         onRowClick={(row) => navigate(`${row.id}`)}
       />
+      {modalConfig && <FormModal {...modalConfig} />}
     </div>
   );
 };
