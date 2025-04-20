@@ -9,6 +9,12 @@ const Input = ({
 }) => {
   return (
     <div className={`flex flex-col items-start ${width}`}>
+      <label
+          htmlFor={name}
+          className="block mb-[22px] font-medium font-poppins"
+        >
+          {label}
+        </label>
       <input
         id={name}
         name={name}

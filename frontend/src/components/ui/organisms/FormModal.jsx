@@ -60,7 +60,6 @@ const FormModal = ({
               ) : (
                 <Input
                   name={field.name}
-                  label={field.label}
                   placeholder={field.placeholder}
                   type={field.type}
                   defaultValue={initialValues[field.name] || ""}
