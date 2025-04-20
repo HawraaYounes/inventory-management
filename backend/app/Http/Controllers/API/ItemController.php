@@ -71,18 +71,19 @@ class ItemController extends Controller
         return response()->json(['message' => 'Item updated successfully']);
     }
 
-    public function markSold($id)
+    public function markSold(Request $request, $id)
     {
         $item = Item::findOrFail($id);
         $productType = $item->productType;
         $this->authorizeOwner($productType);
-
+    
         $item->update([
-            'is_sold' => true,
+            'is_sold' => $request->boolean('is_sold'),
         ]);
-
-        return response()->json(['message' => 'Item marked as sold']);
+    
+        return response()->json(['message' => 'Item sold status updated']);
     }
+    
 
     public function destroy($id)
     {

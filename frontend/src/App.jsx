@@ -12,6 +12,7 @@ import { editProductTypeAction } from "./actions/editProductTypeAction";
 import { removeProductTypeAction } from "./actions/removeProductTypeAction";
 import { addItemAction } from "./actions/addItemAction";
 import { removeItemAction } from "./actions/removeItemAction";
+import { updateItemStatusAction } from "./actions/updateItemStatusAction";
 
 const router = createBrowserRouter([
   {
@@ -30,8 +31,11 @@ const router = createBrowserRouter([
         path: "add-item",
         action: addItemAction, // this matches POST /product-types/:productId/add-item
       },
-      { path: "items/:itemId", 
-        action: removeItemAction },
+      { path: "items/:itemId", action: removeItemAction },
+      {
+        path: "items/:itemId/toggle-sold",
+        action: updateItemStatusAction
+      },
       {
         // /product-types/:productId/edit
         path: "edit",
