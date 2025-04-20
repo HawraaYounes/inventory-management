@@ -2,7 +2,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Auth, { action as authAction } from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
-import EditProductTypeModal from "./components/EditProductTypeModal";
+import EditProductTypeModal from "./components/feature/EditProductTypeModal";
 
 import { dashboardLoader } from "./loaders/dashboardLoader";
 import { productTypeLoader } from "./loaders/productTypeLoader";

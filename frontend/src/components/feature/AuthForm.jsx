@@ -1,7 +1,7 @@
 import { Form, Link, useSearchParams, useActionData } from "react-router-dom";
-import Button from "./ui/atoms/Button";
-import Input from "./ui/atoms/Input";
-import styles from "../styles";
+import Button from "../ui/atoms/Button";
+import Input from "../ui/atoms/Input";
+import styles from "../../styles";
 
 const AuthForm = ({ setFlashMessage }) => {
   const [searchParams] = useSearchParams();

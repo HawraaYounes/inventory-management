@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, useLoaderData } from "react-router-dom";
-import FormModal from "./ui/organisms/FormModal";
-import { productTypeFields } from "../constants/productTypeFields";
+import FormModal from "../ui/organisms/FormModal";
+import { productTypeFields } from "../../constants/productTypeFields";
 
 const EditProductTypeModal = () => {
   const navigate = useNavigate();

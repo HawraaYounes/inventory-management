@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useActionData } from "react-router-dom";
 import { ALERT_TYPES } from "../constants";
-import AuthForm from "../components/AuthForm";
+import AuthForm from "../components/feature/AuthForm";
 import { json, redirect } from "react-router-dom";
 import Alert from "../components/Alert";
 import axios from "axios";

@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import SearchableTable from "./ui/organisms/SearchableTable";
-import FormModal from "./ui/organisms/FormModal";
-import { productTypeFields } from "../constants/productTypeFields";
+import SearchableTable from "../ui/organisms/SearchableTable";
+import FormModal from "../ui/organisms/FormModal";
+import { productTypeFields } from "../../constants/productTypeFields";
 
 const ProductTypeList = ({ products }) => {
   const navigate = useNavigate();

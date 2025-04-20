@@ -6,7 +6,7 @@ import {
   Outlet,
 } from "react-router-dom";
 
-import ProductTypeList from "../components/ProductTypeList";
+import ProductTypeList from "../components/feature/ProductTypeList";
 import ProductItemsList from "./ProductItemsList";
 import FormModal from "../components/ui/organisms/FormModal";
 import Button from "../components/ui/atoms/Button";
