@@ -3,6 +3,7 @@ import { Form, useNavigate } from "react-router-dom";
 import SearchableTable from "./ui/organisms/SearchableTable"
 
 const ProductTypeList = ({ products }) => {
+  console.log(products,"ProductTypeList");
   const navigate = useNavigate();
 
   const columns = [
@@ -18,7 +19,13 @@ const ProductTypeList = ({ products }) => {
     },
     { key: "id",    label: "ID" },
     { key: "name",  label: "Name" },
-    { key: "count", label: "Count" },
+    {
+      key: "count",
+      label: "Count",
+      render: (_, row) => (
+        <span>{row.items_count}</span>  
+      ),
+    },
     {
       key: "actions", label: "Actions",
       render: (_, row) => (

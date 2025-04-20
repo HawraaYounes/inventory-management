@@ -13,8 +13,15 @@ class ProductTypeController extends Controller
 {
     public function index()
     {
-        return ProductType::where('user_id', Auth::id())->get();
+        return ProductType::where('user_id', Auth::id())
+                          ->withCount(['items' => function ($query) {
+                              $query->where('is_sold', 0); // Only count unsold items
+                          }])
+                          ->get();
     }
+    
+
+
 
     public function store(Request $request)
     {
