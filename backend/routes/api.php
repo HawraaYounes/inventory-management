@@ -20,7 +20,7 @@ Route::middleware('auth:api')->group(function () {
 
     // Items 👇
     Route::get('/product-types/{id}/items', [ItemController::class, 'index']);           // List items of a product type
-    Route::post('/product-types/{id}/items', [ItemController::class, 'store']);          // Add items
+    Route::post('/product-types/{productTypeId}/items', [ItemController::class, 'store']);          // Add items
     Route::put('/items/{id}', [ItemController::class, 'update']);                        // Edit item
     Route::put('/items/{id}/sold', [ItemController::class, 'markSold']);                 // Mark as sold
     Route::delete('/items/{id}', [ItemController::class, 'destroy']);                    // Delete item

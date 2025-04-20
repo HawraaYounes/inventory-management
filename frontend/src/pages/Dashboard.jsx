@@ -1,27 +1,49 @@
 // src/pages/Dashboard.jsx
+
 import React, { useState } from "react";
 import {
   useLoaderData,
   useParams,
   Outlet,
-  useNavigationType,
 } from "react-router-dom";
+
 import ProductTypeList from "../components/ProductTypeList";
-import ProductItemsList from "./ProductItemsList"; // or wherever it lives
+import ProductItemsList from "./ProductItemsList";
 import FormModal from "../components/ui/organisms/FormModal";
 import Button from "../components/ui/atoms/Button";
 import styles from "../styles";
+
 import { productTypeFields } from "../constants/productTypeFields";
+import { itemFields } from "../constants/itemFields"; // Create this like productTypeFields
 
 const Dashboard = () => {
-  const [isFormModalOpen, setIsFormModalOpen] = useState(false);
-
-  // either loader gives you { products } or { items }
   const loaderData = useLoaderData();
   const { productId } = useParams();
 
-  // if there's a productId in the URL, we're in ITEMS mode
+  // One modal config for both forms
+  const [modalConfig, setModalConfig] = useState(null);
+
   const mode = productId ? "items" : "productType";
+
+  // Handles opening the modal for both modes
+  const handleOpenModal = () => {
+    if (mode === "productType") {
+      setModalConfig({
+        title: "Add New Product Type",
+        fields: productTypeFields,
+        onClose: () => setModalConfig(null),
+        actionUrl: "/product-types",
+        // Optionally add: actionUrl, method, defaultValues, etc.
+      });
+    } else {
+      setModalConfig({
+        title: "Add New Item",
+        fields: itemFields,
+        onClose: () => setModalConfig(null),
+        actionUrl: `/product-types/${productId}/add-item`
+      });
+    }
+  };
 
   return (
     <div className={`${styles.paddingX} py-5`}>
@@ -29,21 +51,14 @@ const Dashboard = () => {
         <h2 className="text-xl font-medium text-graydarkest">
           {mode === "productType"
             ? "Product Types"
-            : "Items in Product #" + productId}
+            : `Items in Product #${productId}`}
         </h2>
-        {mode === "productType" ? (
-          <Button
-            variant="outline"
-            label="Add new Product Type"
-            onClick={() => setIsFormModalOpen(true)}
-          />
-        ) : (
-          <Button
-            variant="outline"
-            label="Add new Item"
-            onClick={() => /* open your AddItem modal */ {}}
-          />
-        )}
+
+        <Button
+          variant="outline"
+          label={mode === "productType" ? "Add new Product Type" : "Add new Item"}
+          onClick={handleOpenModal}
+        />
       </div>
 
       {mode === "productType" ? (
@@ -52,16 +67,12 @@ const Dashboard = () => {
         <ProductItemsList items={loaderData.items} />
       )}
 
-      {isFormModalOpen && (
+      {modalConfig && (
         <FormModal
-          title="Add New Product Type"
-          fields={productTypeFields}
-          onClose={() => setIsFormModalOpen(false)}
-          // no actionUrl = posts back to /product-types → addProductTypeAction
+          {...modalConfig}
         />
       )}
 
-      {/* Renders <EditProductTypeModal> at /product‑types/:id/edit */}
       <Outlet />
     </div>
   );

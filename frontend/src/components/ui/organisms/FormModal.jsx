@@ -34,22 +34,30 @@ const FormModal = ({
           className="flex flex-col gap-5"
         >
           {fields.map((field) => (
-            <div key={field.name}>
+            <div key={field.name} className="flex flex-col w-full">
+              <label
+                htmlFor={field.name}
+                className="block mb-2 font-medium font-poppins"
+              >
+                {field.label}
+              </label>
+
               {field.type === "file" ? (
-                <div className="flex flex-col items-start w-full">
-                  <label
-                    htmlFor={field.name}
-                    className="block mb-[22px] font-medium font-poppins"
-                  >
-                    {field.label}
-                  </label>
-                  <FileInput
-                    name={field.name}
-                    label={field.label}
-                    required={field.required}
-                    accept="image/*"
-                  />
-                </div>
+                <FileInput
+                  name={field.name}
+                  label={field.label}
+                  required={field.required}
+                  accept={field.accept || "*/*"}
+                />
+              ) : field.type === "textarea" ? (
+                <textarea
+                  id={field.name}
+                  name={field.name}
+                  placeholder={field.placeholder}
+                  required={field.required}
+                  className="w-full border border-gray-300 rounded p-2 h-32"
+                  defaultValue={initialValues[field.name] || ""}
+                />
               ) : (
                 <Input
                   name={field.name}
@@ -57,6 +65,7 @@ const FormModal = ({
                   placeholder={field.placeholder}
                   type={field.type}
                   defaultValue={initialValues[field.name] || ""}
+                  required={field.required}
                 />
               )}
             </div>

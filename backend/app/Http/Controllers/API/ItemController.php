@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\ProductType;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+
 
 class ItemController extends Controller
 {
@@ -19,28 +22,37 @@ class ItemController extends Controller
 
     }
 
+
     public function store(Request $request, $productTypeId)
     {
+        Log::info("Received productTypeId: " . $productTypeId);
         $productType = ProductType::findOrFail($productTypeId);
         $this->authorizeOwner($productType);
-
+    
         $request->validate([
-            'serial_numbers' => 'required|array|min:1',
+            'serial_numbers'   => 'required|array|min:1',
             'serial_numbers.*' => 'required|string|distinct',
         ]);
-
-        $items = [];
-        foreach ($request->serial_numbers as $serial) {
-            $items[] = new Item([
-                'serial_number' => $serial,
-                'is_sold' => false,
-            ]);
-        }
-
-        $productType->items()->saveMany($items);
-
-        return response()->json(['message' => 'Items added successfully'], 201);
+    
+        $items = DB::transaction(function() use ($request, $productType) {
+            $instances = [];
+            foreach ($request->serial_numbers as $serial) {
+                $instances[] = new Item([
+                    'serial_number' => $serial,
+                    'is_sold'       => false,
+                ]);
+            }
+            $productType->items()->saveMany($instances);
+            return $instances;
+        });
+    
+        // Return the newly created items if you want
+        return response()->json([
+          'message' => 'Items added successfully',
+          'items'   => $items,
+        ], 201);
     }
+    
 
     public function update(Request $request, $id)
     {
